@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Visa Slot Alerts Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A mini internal tool for The Flying Panda to track visa slot alerts. Built with a Node.js backend and a modern React frontend using Material-UI (MUI) for a clean, responsive UI.
 
-## Available Scripts
+**Light Theme**
+<img width="1755" height="1213" alt="image" src="https://github.com/user-attachments/assets/b1841aac-4a7a-4632-a957-3ff2258fe695" />
 
-In the project directory, you can run:
+**Dark Theme**
+<img width="1755" height="1213" alt="image" src="https://github.com/user-attachments/assets/4e01653f-9599-4707-8637-35a7a383f897" />
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
+- **Create Alerts**: Form to add new visa alerts with country, city, visa type, and status.
+- **View Alerts**: Table (DataGrid) to list alerts with sorting, filtering, and pagination.
+- **Update Status**: Button to mark alerts as "Booked".
+- **Delete Alerts**: Confirmation dialog before deleting alerts.
+- **Search & Filter**: Frontend search by country and status filter.
+- **API Integration**: Full CRUD operations via REST API.
+- **Modern UI**: Responsive design with cards, dialogs, and snackbar notifications.
 
-### `npm test`
+## Tech Stack
+- **Backend**: Node.js, Express.js, CORS, dotenv, UUID (in-memory storage).
+- **Frontend**: React, Axios, Material-UI (MUI), MUI DataGrid.
+- **Other**: In-memory data storage (for simplicity; replace with DB for production).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Steps
+1. **Prerequisites**: Ensure Node.js (v14+), npm, and Git are installed.
+2. **Clone the Repository**:
+   ```
+   git clone <your-github-repo-url>
+   cd visa-alerts
+   ```
+3. **Backend Setup**:
+   - Navigate to `backend/`: `cd backend`
+   - Install dependencies: `npm install`
+   - Create `.env` file: `echo "PORT=5000" > .env`
+   - Start the server: `node server.js` (runs on http://localhost:5000)
+4. **Frontend Setup**:
+   - Navigate to `frontend/`: `cd ../frontend`
+   - Install dependencies: `npm install`
+   - Start the app: `npm start` (runs on http://localhost:3000)
+5. **Test**:
+   - Open http://localhost:3000 in a browser.
+   - Create alerts via the form, view in the DataGrid, update/delete with confirmations.
+   - API endpoints: Use Postman or curl to test GET/POST/PUT/DELETE on http://localhost:5000/alerts (e.g., `curl -X GET http://localhost:5000/alerts`).
 
-### `npm run build`
+## Usage
+- **Creating an Alert**: Fill the form with country (e.g., "USA"), city (e.g., "New York"), visa type, and status. Click "Create Alert".
+- **Viewing Alerts**: Alerts appear in the DataGrid below. Use search/filter for quick access.
+- **Updating/Deleting**: Click "Book" to update status or "Delete" with confirmation.
+- **API Example**: POST to create: `curl -X POST http://localhost:5000/alerts -H "Content-Type: application/json" -d '{"country":"USA","city":"New York","visaType":"Tourist","status":"Active"}'`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Design Decisions
+- **Backend**: Used in-memory array for storage to keep it lightweight (no DB setup). Implemented custom logger middleware for request tracking and centralized error handling for consistency. Query filters on GET for country/status. HTTP status codes for proper API responses.
+- **Frontend**: React with hooks for state management. Integrated MUI for modern, accessible UI (e.g., DataGrid for table functionality, cards for forms). Axios for API calls. Added loading states, snackbars for feedback, and confirmation dialogs for better UX.
+- **Data Model**: Followed the specified schema (id, country, city, visaType, status, createdAt). UUID for unique IDs, auto-generated timestamps.
+- **Project Structure**: Separated backend/frontend for modularity. Used environment variables for port configuration.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## What You’d Improve for Production
+- **Database**: Replace in-memory storage with a persistent DB like MongoDB or PostgreSQL for data durability and scalability.
+- **Authentication**: Add JWT-based auth or OAuth for internal tool security.
+- **Testing**: Implement unit/integration tests (Jest for backend, React Testing Library for frontend).
+- **Deployment**: Use Docker for containerization, deploy backend to Heroku/AWS, frontend to Netlify/Vercel. Add CI/CD with GitHub Actions.
+- **Performance**: Add caching (e.g., Redis), pagination on backend, and optimize API calls.
+- **Features**: Real-time updates (WebSockets), email notifications for alerts, advanced filters, and user roles.
+- **Security**: Input sanitization, rate limiting, and HTTPS enforcement.
+- **TypeScript**: Migrate to TypeScript for type safety and better maintainability.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Where AI Helped vs Where You Had to Think
+- **AI Helped**: Boilerplate code generation (e.g., Express app setup, basic React components, MUI component integration like DataGrid and dialogs). This sped up initial scaffolding and UI styling.
+- **Where I Had to Think**: Designed the API logic (routes, middleware, error handling), ensured frontend-backend integration (e.g., state management, API calls), handled custom features like confirmation dialogs and search/filter logic, and debugged issues (e.g., middleware exports). I also structured the project, chose MUI for modernization, and ensured realism for production improvements.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+MIT License. See LICENSE for details.
